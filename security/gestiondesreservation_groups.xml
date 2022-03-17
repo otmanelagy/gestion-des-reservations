@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="gestiondesreservation_user" model="res.groups">
+            <field name="name">gestiondesreservation / Session_confirm</field>
+        </record>
+
+        <record id="gestiondesreservation_responsible" model="res.groups">
+            <field name="name">gestiondesreservation / Session_All_access</field>
+        </record>
+    </data>
+</odoo>

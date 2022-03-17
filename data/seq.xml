@@ -1,0 +1,22 @@
+<odoo>
+  <data>
+<!--    <record id="unique_sequence_id" model="ir.sequence">-->
+<!--       <field name="name">Sequence Name Goes Here</field>-->
+<!--       <field name="code">your.sequence.code</field>-->
+<!--       <field name="active">TRUE</field>-->
+<!--       <field name="prefix">RESERVE</field>-->
+<!--       <field name="padding">5</field>-->
+<!--       <field name="number_next">1</field>-->
+<!--       <field name="number_increment">1</field>-->
+<!--    </record>-->
+      <record id="sequence_reclam_seq" model="ir.sequence">
+            <field name="name">Account reconcile sequence</field>
+            <field name="code">gestion.reclamation</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">RESERVE%(year)s/%(month)s/%(day)s_</field>
+            <field eval="3" name="padding"/>
+            <field eval="1" name="number_increment"/>
+      </record>
+
+  </data>
+</odoo>

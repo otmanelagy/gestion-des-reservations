@@ -1,0 +1,274 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="gestiondesreclamtion_form">
+            <field name="name">gestiondesreclamtion.form</field>
+            <field name="model">gestiondesreclamtion.reservation</field>
+            <field name="arch" type="xml">
+                <form string="reclamation Form">
+                    <header>
+                        <button name="action_annulled" type="object"
+                                string="Reset to Nouvelle"
+                                states="annulled" groups="gestiondesreclamtion.gestiondesreservation_responsible"/>
+                        <button name="action_nouvelle" type="object"
+                                string="Confirm" states="nouvelle"
+                                class="oe_highlight"/>
+                        <button name="action_confirmed" type="object"
+                                string="Mark as valid" states="confirmed"
+                                class="oe_highlight" groups="gestiondesreclamtion.gestiondesreservation_responsible"/>
+                        <button name="action_valid" type="object"
+                                string="Mark as annuled" states="valid"
+                                class="oe_highlight" groups="gestiondesreclamtion.gestiondesreservation_responsible"/>
+                        <button name="create_quotation" type="object"
+                                string="generate a quotation" states="valid"
+                                class="oe_highlight" groups="gestiondesreclamtion.gestiondesreservation_responsible"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="reservation_ref"/>
+                                <field name="client_id"/>
+                                <!--                        <field name="client_id"/>-->
+                                <field name="articles_id"/>
+                            </group>
+                            <group>
+                                <field name="reservation_date"/>
+                                <label for="month" string="duration"/>
+                                <div class="address_format">
+                                    <field name="month" style="width: 33%" string="mois"/>
+                                    <field name="days" style="width: 33%" string="jour"/>
+                                    <field name="hours" style="width: 33%" string="heurs"/>
+                                </div>
+                                <field name="reservation_end_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="devis">
+                                <field name="devs">
+                                    <tree string="Registered sessions">
+                                        <field name="name"/>
+                                        <field name="partner_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="gestiondesreclamtion_tree1">
+            <field name="name">gestiondesreclamtion.list</field>
+            <field name="model">gestiondesreclamtion.reservation</field>
+            <field name="arch" type="xml">
+                <tree string="reservation list" decoration-warning="state == 'annulled'">
+                    <field name="reservation_ref"/>
+                    <field name="client_id"/>
+                    <field name="articles_id"/>
+                    <field name="reservation_date"/>
+                    <field name="reservation_end_date"/>
+                    <field name="state" widget="badge" decoration-info="state == 'confirmed'"
+                           decoration-success="state == 'valid'" decoration-primary="state == 'nouvelle'"
+                           decoration-warning="state == 'annulled'"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="gestiondesreclamtion_reservation_view_kanban" model="ir.ui.view">
+            <field name="name">reservation.kanban</field>
+            <field name="model">gestiondesreclamtion.reservation</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_reservation" sample="1">
+                    <templates>
+                        <field name="color"/>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}}
+                                                  oe_kanban_global_click_edit oe_semantic_html_override
+                                                  oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+                                <div class="oe_dropdown_kanban">
+                                    <!-- dropdown menu -->
+                                    <div class="oe_dropdown_toggle">
+                                        <i class="fa fa-bars fa-lg"/>
+                                        <ul class="oe_dropdown_menu">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+                                            <li>
+                                                <ul class="oe_kanban_colorpicker"
+                                                    data-field="color"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="oe_clear"></div>
+                                </div>
+                                <div t-attf-class="oe_kanban_content">
+                                    <!-- title -->
+                                    reservation name:
+                                    <field name="reservation_ref"/>
+                                    <br/>
+                                    client id:
+                                    <field name="client_id"/>
+                                    <br/>
+                                    Start date:
+                                    <field name="reservation_date"/>
+                                    <br/>
+                                    end date:
+                                    <field name="reservation_end_date"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="reservation_search_view">
+            <field name="name">reservation.search</field>
+            <field name="model">gestiondesreclamtion.reservation</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="reservation_ref"/>
+                    <field name="client_id"/>
+                    <field name="articles_id"/>
+                    <field name="reservation_date"/>
+                    <field name="reservation_end_date"/>
+                    <filter name="state" string="toutes les reservation nouvelle"
+                            domain="[('state', '=', 'nouvelle')]"/>
+                    <filter name="state" string="toutes les reservation confirme"
+                            domain="[('state', '=', 'confirmed')]"/>
+                    <filter name="state" string="toutes les reservation valide" domain="[('state', '=', 'valid')]"/>
+                    <filter name="state" string="toutes les reservation annulle" domain="[('state', '=', 'annulled')]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_client" string="client" context="{'group_by':'client_id'}"/>
+                        <filter name="group_reservation_date" string="reservation_date"
+                                context="{'group_by':'reservation_date:month'}"/>
+                        <filter name="group_articles" string="articles" context="{'group_by':'articles_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="gestiondesreclamtion_action_window_fled">
+            <field name="name">gestion des reclamation window</field>
+            <field name="res_model">gestiondesreclamtion.reservation</field>
+            <field name="view_mode">tree,form,kanban,search</field>
+            <field name="view_id" ref="gestiondesreclamtion_tree1"/>
+            <field name="context" eval=""/>
+            <field name="domain">[('client_id','=',uid)]</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="gestiondesreclamtion_actions_window">
+            <field name="name">gestion des reclamation window</field>
+            <field name="res_model">gestiondesreclamtion.reservation</field>
+            <field name="view_mode">tree,form,kanban,search</field>
+            <field name="view_id" ref="gestiondesreclamtion_tree1"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">give all data required</p>
+            </field>
+            <field name="context" eval=""/>
+            <field name="domain">[]</field>
+            <!--        <field name="search_view_id" ref="product_search_form_view"/>-->
+        </record>
+
+        <record model="ir.ui.view" id="gestiondesreclamtion_tree2_sales">
+            <field name="name">sales.list</field>
+            <field name="model">gestiondesreclamtion.reservation</field>
+            <field name="arch" type="xml">
+                <tree string="devi list">
+                    <field name="devs"/>
+                    <!--            <field name="devs.partner_id"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="show_sales_action_window" model="ir.actions.act_window">
+            <field name="name">sales order</field>
+            <field name="res_model">gestiondesreclamtion.reservation</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="gestiondesreclamtion_tree2_sales"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <!--      graph start-->
+        <record id="gestion_reservation_count_view_graph" model="ir.ui.view">
+            <field name="name">reservation.cont.graph</field>
+            <field name="model">gestiondesreclamtion.reservation</field>
+            <field name="arch" type="xml">
+                <graph string="reservation number">
+                    <field name="month_ex" interval=""/>
+<!--                    <field name="reservation_count" string="number of reservation"/>-->
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="graph_count_action_window">
+            <field name="name">agraph.views</field>
+            <field name="res_model">gestiondesreclamtion.reservation</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="gestion_reservation_count_view_graph"/>
+        </record>
+        <!--graph end-->
+
+
+        <record model="ir.actions.act_window" id="annulled_action_window">
+            <field name="name">annulled.records</field>
+            <field name="res_model">gestiondesreclamtion.reservation</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="gestion_reservation_count_view_graph"/>
+            <field name="domain">[('state','=','annulled')]</field>
+        </record>
+
+        <!--      pivot -&ndash;&gt;start-->
+        <record id="gestion_reservation_view_pivot" model="ir.ui.view">
+            <field name="name">reservation_pivot</field>
+            <field name="model">gestiondesreclamtion.reservation</field>
+            <field name="arch" type="xml">
+                <pivot string="reservation hours">
+                    <field name="hours_ex" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="gestion_reservation_view_graph" model="ir.ui.view">
+            <field name="name">reservation_graph</field>
+            <field name="model">gestiondesreclamtion.reservation</field>
+            <field name="arch" type="xml">
+                <graph string="reservation hours">
+                    <field name="hours_ex" type="measure"/>
+                    <!--                  <field name="reservation_date" interval="month"/>-->
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="pivot_actions_window">
+            <field name="name">pivot.views</field>
+            <field name="res_model">gestiondesreclamtion.reservation</field>
+            <field name="view_mode">pivot,graph</field>
+            <field name="view_id" ref="gestion_reservation_view_pivot"/>
+            <field name="view_id" ref="gestion_reservation_view_graph"/>
+            <field name="context" eval="{'search_default_group_reservation_date': 1}"/>
+        </record>
+        <!--      <record model="ir.ui.view" id="partner_instructor_form_view">-->
+        <!--            <field name="name">partner.instructor</field>-->
+        <!--            <field name="model">res.users</field>-->
+        <!--            <field name="inherit_id" ref="base.view_partner_form"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                 <xpath expr="//page[@name='contact_addresses']" position="before">-->
+        <!--                    <page string="Sessions">-->
+        <!--                        <group>-->
+        <!--                            <field name="instructor"/>-->
+        <!--                            <field name="session_ids"/>-->
+        <!--                        </group>-->
+        <!--                    </page>-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <!--        <record model="ir.actions.act_window" id="contact_list_action">-->
+        <!--            <field name="name">Contacts</field>-->
+        <!--            <field name="res_model">res.partner</field>-->
+        <!--            <field name="view_mode">tree,form</field>-->
+        <!--        </record>-->
+    </data>
+</odoo>

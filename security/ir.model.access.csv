@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+gestiondesreclamtion_reservation,gestiondesreclamtion_reservation,model_gestiondesreclamtion_reservation,,1,1,1,1
+gestiondesreclamtion_articles,gestiondesreclamtion_articles,model_gestiondesreclamtion_articles,,1,1,1,1
+gestiondesreclamtion_sale_1,gestiondesreclamtion_sale,sale.model_sale_order,,1,1,1,1
+

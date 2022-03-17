@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="user_reservation_tree_view">
+            <field name="name">sale.reservation.tree.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='name']" position="after">
+                     <field name="reservation_ids" string="reservation associate"/>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="sales_reservation_form_view" model="ir.ui.view" >
+            <field name="name">sale.reservation.form.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//form//sheet//notebook//page[@name='customer_signature']" position="after">
+                     <page name="reservation-id" string="reservation Lines">
+                        <field name="reservation_ids">
+                            <tree>
+                                <field name="reservation_ref"/>
+                                <field name="client_id"/>
+<!--                                <field name="product_id"/>-->
+                            </tree>
+                         </field>
+                     </page>
+                 </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

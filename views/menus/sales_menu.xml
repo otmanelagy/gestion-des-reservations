@@ -1,0 +1,6 @@
+<odoo>
+    <data>
+        <menuitem name="Ventes" id="gestiondesreclamtion.menu_2_articles" parent="gestiondesreclamtion.menu_2"
+                  action="show_sales_action_window" groups="gestiondesreservation_responsible"/>
+    </data>
+</odoo>

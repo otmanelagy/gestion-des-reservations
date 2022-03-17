@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="articles_form">
+            <field name="name">articles.form</field>
+            <field name="model">gestiondesreclamtion.articles</field>
+            <field name="arch" type="xml">
+                <form string="articles Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="art_resp"/>
+                            <notebook>
+                                <page string="Description">
+                                    <field name="description"/>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="articles_list">
+            <field name="name">articles list</field>
+            <field name="model">gestiondesreclamtion.articles</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="art_resp"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="articles_action_window">
+            <field name="name">articles views</field>
+            <field name="res_model">gestiondesreclamtion.articles</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+    </data>
+</odoo>

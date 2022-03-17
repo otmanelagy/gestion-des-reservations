@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+
+        <menuitem name="Reporting" id="gestiondesreclamtion.menu_3" parent="gestiondesreclamtion.menu_root"
+                  groups="gestiondesreservation_responsible"/>
+
+
+            <menuitem name="Mes reservation par mois" id="gestiondesreclamtion.menu_3_list"
+                      parent="gestiondesreclamtion.menu_3" action="graph_count_action_window"
+                      groups="gestiondesreservation_responsible"/>
+            <menuitem name="VenMes reservation annulle par mois" id="gestiondesreclamtion.menu_3_annulled"
+                      parent="gestiondesreclamtion.menu_3" action="annulled_action_window"
+                      groups="gestiondesreservation_responsible"/>
+            <menuitem name="nombre d'heure reserver par mois" id="gestiondesreclamtion.menu_3_heures"
+                      parent="gestiondesreclamtion.menu_3" action="pivot_actions_window"
+                      groups="gestiondesreservation_responsible"/>
+
+    </data>
+</odoo>

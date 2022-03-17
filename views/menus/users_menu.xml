@@ -1,0 +1,6 @@
+<odoo>
+    <data>
+        <menuitem name="Clients" id="gestiondesreclamtion.menu_2_list" parent="gestiondesreclamtion.menu_2"
+                  action="client_action_window" groups="gestiondesreclamtion.gestiondesreservation_responsible"/>
+    </data>
+</odoo>

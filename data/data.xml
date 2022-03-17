@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_set_devis" model="ir.actions.server">
+          <field name="name">cree devis</field>
+          <field name="model_id" ref="gestiondesreclamtion.reservation"/>
+          <field name="groups_id"  eval="[(4, ref('base.group_user'))]"/>
+          <field name="state">code</field>
+          <field name="code">action=self.create_quotation()</field>
+        </record>
+    </data>
+</odoo>
