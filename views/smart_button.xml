@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <record id="sale_order_reservation_smart_button" model="ir.ui.view">
+        <record id="sale_order_smart_button" model="ir.ui.view">
             <field name="name">sale_order.reservation_smart.button</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>

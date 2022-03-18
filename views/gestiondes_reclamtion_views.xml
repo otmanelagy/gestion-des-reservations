@@ -1,7 +1,7 @@
 <odoo>
     <data>
 
-        <record model="ir.ui.view" id="gestiondesreclamtion_form">
+        <record model="ir.ui.view" id="gestiondesreclamtion_form_view">
             <field name="name">gestiondesreclamtion.form</field>
             <field name="model">gestiondesreclamtion.reservation</field>
             <field name="arch" type="xml">
@@ -45,7 +45,7 @@
                         </group>
                         <notebook>
                             <page string="devis">
-                                <field name="devs">
+                                <field name="sale_order">
                                     <tree string="Registered sessions">
                                         <field name="name"/>
                                         <field name="partner_id"/>
@@ -58,7 +58,7 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="gestiondesreclamtion_tree1">
+        <record model="ir.ui.view" id="gestiondesreclamtion_tree1_view">
             <field name="name">gestiondesreclamtion.list</field>
             <field name="model">gestiondesreclamtion.reservation</field>
             <field name="arch" type="xml">
@@ -123,7 +123,7 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="reservation_search_view">
+        <record model="ir.ui.view" id="gestion_desreservation_search_view">
             <field name="name">reservation.search</field>
             <field name="model">gestiondesreclamtion.reservation</field>
             <field name="arch" type="xml">
@@ -153,7 +153,7 @@
             <field name="name">gestion des reclamation window</field>
             <field name="res_model">gestiondesreclamtion.reservation</field>
             <field name="view_mode">tree,form,kanban,search</field>
-            <field name="view_id" ref="gestiondesreclamtion_tree1"/>
+            <field name="view_id" ref="gestiondesreclamtion_tree1_view"/>
             <field name="context" eval=""/>
             <field name="domain">[('client_id','=',uid)]</field>
         </record>
@@ -162,7 +162,7 @@
             <field name="name">gestion des reclamation window</field>
             <field name="res_model">gestiondesreclamtion.reservation</field>
             <field name="view_mode">tree,form,kanban,search</field>
-            <field name="view_id" ref="gestiondesreclamtion_tree1"/>
+            <field name="view_id" ref="gestiondesreclamtion_tree1_view"/>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">give all data required</p>
             </field>
@@ -176,8 +176,9 @@
             <field name="model">gestiondesreclamtion.reservation</field>
             <field name="arch" type="xml">
                 <tree string="devi list">
-                    <field name="devs"/>
-                    <!--            <field name="devs.partner_id"/>-->
+                    <field name="sale_order"/>
+                    <field name="partner_id"/>
+<!--                    <field name="date_create"/>-->
                 </tree>
             </field>
         </record>
@@ -191,13 +192,13 @@
         </record>
 
         <!--      graph start-->
-        <record id="gestion_reservation_count_view_graph" model="ir.ui.view">
+        <record id="gestion_reservation_count_graph_view" model="ir.ui.view">
             <field name="name">reservation.cont.graph</field>
             <field name="model">gestiondesreclamtion.reservation</field>
             <field name="arch" type="xml">
                 <graph string="reservation number">
-                    <field name="month_ex" interval=""/>
-<!--                    <field name="reservation_count" string="number of reservation"/>-->
+                    <field name="month_computed" interval=""/>
+                    <!--                    <field name="reservation_count" string="number of reservation"/>-->
                 </graph>
             </field>
         </record>
@@ -206,16 +207,16 @@
             <field name="name">agraph.views</field>
             <field name="res_model">gestiondesreclamtion.reservation</field>
             <field name="view_mode">graph</field>
-            <field name="view_id" ref="gestion_reservation_count_view_graph"/>
+            <field name="view_id" ref="gestion_reservation_count_graph_view"/>
         </record>
         <!--graph end-->
 
 
-        <record model="ir.actions.act_window" id="annulled_action_window">
+        <record model="ir.actions.act_window" id="annulled_reservation_action_window">
             <field name="name">annulled.records</field>
             <field name="res_model">gestiondesreclamtion.reservation</field>
             <field name="view_mode">graph</field>
-            <field name="view_id" ref="gestion_reservation_count_view_graph"/>
+            <field name="view_id" ref="gestion_reservation_count_graph_view"/>
             <field name="domain">[('state','=','annulled')]</field>
         </record>
 
@@ -225,28 +226,28 @@
             <field name="model">gestiondesreclamtion.reservation</field>
             <field name="arch" type="xml">
                 <pivot string="reservation hours">
-                    <field name="hours_ex" type="measure"/>
+                    <field name="hours_computed" type="measure"/>
                 </pivot>
             </field>
         </record>
 
-        <record id="gestion_reservation_view_graph" model="ir.ui.view">
+        <record id="gestion_des_reservation_view_graph" model="ir.ui.view">
             <field name="name">reservation_graph</field>
             <field name="model">gestiondesreclamtion.reservation</field>
             <field name="arch" type="xml">
                 <graph string="reservation hours">
-                    <field name="hours_ex" type="measure"/>
+                    <field name="hours_computed" type="measure"/>
                     <!--                  <field name="reservation_date" interval="month"/>-->
                 </graph>
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="pivot_actions_window">
-            <field name="name">pivot.views</field>
+        <record model="ir.actions.act_window" id="gestiondesreclamtion_actions_pivot_graph">
+            <field name="name">gestiondesreclamtion.actions.pivot.graph</field>
             <field name="res_model">gestiondesreclamtion.reservation</field>
             <field name="view_mode">pivot,graph</field>
             <field name="view_id" ref="gestion_reservation_view_pivot"/>
-            <field name="view_id" ref="gestion_reservation_view_graph"/>
+            <field name="view_id" ref="gestion_des_reservation_view_graph"/>
             <field name="context" eval="{'search_default_group_reservation_date': 1}"/>
         </record>
         <!--      <record model="ir.ui.view" id="partner_instructor_form_view">-->

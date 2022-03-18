@@ -5,14 +5,14 @@
                   groups="gestiondesreservation_responsible"/>
 
 
-            <menuitem name="Mes reservation par mois" id="gestiondesreclamtion.menu_3_list"
+            <menuitem name="Mes reservation par month" id="gestiondesreclamtion.menu_3_list"
                       parent="gestiondesreclamtion.menu_3" action="graph_count_action_window"
                       groups="gestiondesreservation_responsible"/>
-            <menuitem name="VenMes reservation annulle par mois" id="gestiondesreclamtion.menu_3_annulled"
-                      parent="gestiondesreclamtion.menu_3" action="annulled_action_window"
+            <menuitem name="Mes reservation annulled per month" id="gestiondesreclamtion.menu_3_annulled"
+                      parent="gestiondesreclamtion.menu_3" action="annulled_reservation_action_window"
                       groups="gestiondesreservation_responsible"/>
-            <menuitem name="nombre d'heure reserver par mois" id="gestiondesreclamtion.menu_3_heures"
-                      parent="gestiondesreclamtion.menu_3" action="pivot_actions_window"
+            <menuitem name="number of hours reserved per month" id="gestiondesreclamtion.menu_3_hours"
+                      parent="gestiondesreclamtion.menu_3" action="gestiondesreclamtion_actions_pivot_graph"
                       groups="gestiondesreservation_responsible"/>
 
     </data>

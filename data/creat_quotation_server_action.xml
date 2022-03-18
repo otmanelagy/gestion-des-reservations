@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <record id="action_set_mydevis" model="ir.actions.server">
-            <field name="name">Cree Devis</field>
+        <record id="action_set_quotations" model="ir.actions.server">
+            <field name="name">action.set.quotations</field>
             <field name="type">ir.actions.server</field>
             <field name="model_id" ref="model_gestiondesreclamtion_reservation"/>
             <field name="binding_model_id" ref="model_gestiondesreclamtion_reservation"/>
